@@ -30,8 +30,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="app - Copy.js" />
-    <Compile Include="app no mass transit.js" />
     <Content Include="package.json" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

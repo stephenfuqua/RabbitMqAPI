@@ -18,14 +18,28 @@ app.set('port', process.env.PORT || 10025);
  * Rabbit MQ connection setup
  */
 var rabbitSettings = {
-    mqUrl: process.env.RABBITMQ_URL || 'amqp://localhost',
     exchangeName: process.env.EXCHANGE || 'RabbitMQ.WebApi:SimpleMessage',
     queueName: process.env.QUEUE || 'apitest_webapi',
 };
 
+var connectionOptions =
+{
+    host: process.env.RABBITMQ_URL || 'amqp://localhost',
+    port: 5672,
+    login: process.env.RABBITMQ_USER,
+    password: process.env.RABBITMQ_PASS,
+    connectionTimeout: 10000,
+    authMechanism: 'AMQPLAIN',
+    vhost: '/',
+    noDelay: true,
+    ssl: {
+        enabled: false
+    }
+};
+
 
 console.log('Opening connection to RabbitMQ');
-var connection = amqp.createConnection({ url: rabbitSettings.mqUrl }, {
+var connection = amqp.createConnection(connectionOptions, {
     reconnect: true, // Enable reconnection
     reconnectBackoffStrategy: 'linear',
     reconnectBackoffTime: 1000, // Try reconnect once a second
